@@ -42,7 +42,10 @@
             min-height: 100vh;
         }
 
-        /* Container for the Gateway UI */
+        /* ==============================
+           LOGGED-OUT GATEWAY
+        ============================== */
+
         .container {
             text-align: center;
             max-width: 400px;
@@ -97,7 +100,10 @@
             color: rgba(255,255,255,0.7);
         }
 
-        /* Full-screen Iframe for Gamma */
+        /* ==============================
+           GAMMA CLUB CONTENT
+        ============================== */
+
         #member-content {
             display: none;
             position: fixed;
@@ -109,14 +115,19 @@
             z-index: 100;
         }
 
-        /* Change Password Button */
-        #account-button {
+        /* ==============================
+           ACCOUNT CONTROLS
+        ============================== */
+
+        #account-controls {
             display: none;
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 0;
+            right: 0;
             z-index: 1000;
+        }
 
+        .account-btn {
             background: var(--gold);
             color: #000;
             border: none;
@@ -132,12 +143,24 @@
             transition: all 0.3s ease;
         }
 
-        #account-button:hover {
+        .account-btn:hover {
             background: #e2c07d;
-            box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
         }
 
-        /* Loading state */
+        .logout-btn {
+            background: #1a1a1a;
+            color: var(--gold);
+            border-left: 1px solid var(--gold);
+        }
+
+        .logout-btn:hover {
+            background: #2a2a2a;
+        }
+
+        /* ==============================
+           LOADING SCREEN
+        ============================== */
+
         #loading-screen {
             color: var(--gold);
             font-family: 'Cinzel', serif;
@@ -153,12 +176,19 @@
 
 <body>
 
-    <!-- 1. Loading Screen -->
+    <!-- ==============================
+         1. LOADING SCREEN
+    ============================== -->
+
     <div id="loading-screen">
         VERIFYING ACCESS...
     </div>
 
-    <!-- 2. Gateway UI - Logged Out -->
+
+    <!-- ==============================
+         2. LOGGED-OUT GATEWAY
+    ============================== -->
+
     <div class="container" id="gateway-ui">
 
         <div class="logo-container">
@@ -187,60 +217,119 @@
 
     </div>
 
-    <!-- 3. Gamma Club Content -->
+
+    <!-- ==============================
+         3. GAMMA CLUB CONTENT
+    ============================== -->
+
     <iframe
         id="member-content"
         src="https://landing-page-8yan0s4.gamma.site/"
     ></iframe>
 
-    <!-- 4. Logged-in Change Password Button -->
-    <button
-        id="account-button"
-        data-ms-modal="profile"
-        data-ms-modal-tab="changePassword"
-    >
-        Change Password
-    </button>
 
-    <!-- 5. Login State Logic -->
+    <!-- ==============================
+         4. LOGGED-IN ACCOUNT CONTROLS
+    ============================== -->
+
+    <div id="account-controls">
+
+        <!-- Change Password -->
+        <button
+            data-ms-modal="profile"
+            data-ms-modal-tab="changePassword"
+            class="account-btn"
+        >
+            Change Password
+        </button>
+
+        <!-- Log Out -->
+        <button
+            data-ms-action="logout"
+            class="account-btn logout-btn"
+        >
+            Log Out
+        </button>
+
+    </div>
+
+
+    <!-- ==============================
+         5. MEMBERSTACK LOGIN STATE
+    ============================== -->
+
     <script>
-        window.$memberstackDom.getCurrentMember().then(({ data: member }) => {
 
-            const loadingScreen = document.getElementById('loading-screen');
-            const gatewayUi = document.getElementById('gateway-ui');
-            const memberContent = document.getElementById('member-content');
-            const accountButton = document.getElementById('account-button');
+        window.$memberstackDom.getCurrentMember()
+        .then(({ data: member }) => {
+
+            const loadingScreen =
+                document.getElementById('loading-screen');
+
+            const gatewayUi =
+                document.getElementById('gateway-ui');
+
+            const memberContent =
+                document.getElementById('member-content');
+
+            const accountControls =
+                document.getElementById('account-controls');
+
 
             if (member) {
 
-                // Logged in
+                // =========================
+                // MEMBER IS LOGGED IN
+                // =========================
+
                 loadingScreen.style.display = 'none';
+
                 gatewayUi.style.display = 'none';
 
                 memberContent.style.display = 'block';
-                accountButton.style.display = 'block';
+
+                accountControls.style.display = 'flex';
+
 
             } else {
 
-                // Logged out
+                // =========================
+                // MEMBER IS LOGGED OUT
+                // =========================
+
                 loadingScreen.style.display = 'none';
+
                 gatewayUi.style.display = 'block';
 
                 memberContent.style.display = 'none';
-                accountButton.style.display = 'none';
+
+                accountControls.style.display = 'none';
+
             }
 
-        }).catch((error) => {
+        })
+
+        .catch((error) => {
 
             console.error('Memberstack error:', error);
 
-            // If Memberstack fails, show the login gateway
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('gateway-ui').style.display = 'block';
-            document.getElementById('member-content').style.display = 'none';
-            document.getElementById('account-button').style.display = 'none';
+            // If Memberstack fails,
+            // show the login gateway rather than the protected content.
+
+            document.getElementById('loading-screen')
+                .style.display = 'none';
+
+            document.getElementById('gateway-ui')
+                .style.display = 'block';
+
+            document.getElementById('member-content')
+                .style.display = 'none';
+
+            document.getElementById('account-controls')
+                .style.display = 'none';
 
         });
+
     </script>
 
 </body>
