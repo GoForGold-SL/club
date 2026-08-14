@@ -4,125 +4,244 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GO-FOR-GOLD | Member Gateway</title>
-    
+
     <!-- Memberstack Script -->
-   <script data-memberstack-app="app_cmr37utu300er0tsx1urlei2t" src="https://static.memberstack.com/scripts/v2/memberstack.js" type="text/javascript"></script>
-    
+    <script
+        data-memberstack-app="app_cmr37utu300er0tsx1urlei2t"
+        src="https://static.memberstack.com/scripts/v2/memberstack.js"
+        type="text/javascript">
+    </script>
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
-        :root { --gold: #c5a059; --dark-bg: #0f0f0f; }
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; }
-        
-        body { 
-            background: radial-gradient(circle at center, #1a1a1a 0%, #0f0f0f 100%); 
-            color: #ffffff; 
-            font-family: 'Inter', sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
+        :root {
+            --gold: #c5a059;
+            --dark-bg: #0f0f0f;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0f0f0f 100%);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
         /* Container for the Gateway UI */
-        .container { text-align: center; max-width: 400px; width: 90%; display: none; }
-        
-        .logo-container { margin-bottom: 40px; }
-        .logo-image { max-width: 280px; height: auto; display: block; margin: 0 auto; }
-        
-        .btn { 
-            background-color: var(--gold); 
-            color: #000; 
-            padding: 20px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            font-size: 14px; 
-            display: block; 
-            transition: all 0.3s ease; 
-            border: none; 
-            cursor: pointer; 
-            width: 100%; 
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            display: none;
         }
-        .btn:hover { background-color: #e2c07d; box-shadow: 0 0 20px rgba(197, 160, 89, 0.3); }
-        
-        .forgot-link { 
-            display: inline-block; 
-            margin-top: 25px; 
-            color: rgba(255,255,255,0.4); 
-            font-size: 11px; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            text-decoration: none; 
-            cursor: pointer; 
+
+        .logo-container {
+            margin-bottom: 40px;
+        }
+
+        .logo-image {
+            max-width: 280px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn {
+            background-color: var(--gold);
+            color: #000;
+            padding: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 14px;
+            display: block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #e2c07d;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+        }
+
+        .forgot-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: rgba(255,255,255,0.4);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .forgot-link:hover {
+            color: rgba(255,255,255,0.7);
         }
 
         /* Full-screen Iframe for Gamma */
-        #member-content { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            border: none; 
+        #member-content {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
             z-index: 100;
         }
 
-        /* Loading state */
-        #loading-screen { color: var(--gold); font-family: 'Cinzel', serif; letter-spacing: 2px; }
+        /* Change Password Button */
+        #account-button {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
 
-        /* HIDE THE KITCHEN ACADEMY LOGO IN THE LOGIN MODAL */
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 12px 18px;
+
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #account-button:hover {
+            background: #e2c07d;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+        }
+
+        /* Loading state */
+        #loading-screen {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+        }
+
+        /* Hide Memberstack modal logo */
         #msOverlay [data-element="modal-logo"] {
             display: none !important;
         }
     </style>
 </head>
+
 <body>
 
     <!-- 1. Loading Screen -->
-    <div id="loading-screen">VERIFYING ACCESS...</div>
+    <div id="loading-screen">
+        VERIFYING ACCESS...
+    </div>
 
-    <!-- 2. The Gateway UI (Logged Out) -->
+    <!-- 2. Gateway UI - Logged Out -->
     <div class="container" id="gateway-ui">
+
         <div class="logo-container">
-            <img src="GO-FOR-GOLD%20CLUB%20LOGO.png" alt="GO-FOR-GOLD CLUB" class="logo-image">
+            <img
+                src="GO-FOR-GOLD%20CLUB%20LOGO.png"
+                alt="GO-FOR-GOLD CLUB"
+                class="logo-image"
+            >
         </div>
 
-        <button data-ms-modal="login" class="btn">
+        <!-- Login -->
+        <button
+            data-ms-modal="login"
+            class="btn"
+        >
             Member Access
         </button>
 
-        <a data-ms-modal="forgot-password" class="forgot-link">
-            Change/Reset Password
+        <!-- Forgot / Reset Password -->
+        <a
+            data-ms-modal="forgot-password"
+            class="forgot-link"
+        >
+            Change / Reset Password
         </a>
+
     </div>
 
-    <!-- 3. The Wrapped Content (Logged In) - NOW WITH THE CORRECT GAMMA LINK -->
-    <iframe id="member-content" src="https://landing-page-8yan0s4.gamma.site/"></iframe>
+    <!-- 3. Gamma Club Content -->
+    <iframe
+        id="member-content"
+        src="https://landing-page-8yan0s4.gamma.site/"
+    ></iframe>
 
-    <!-- 4. The Logic Script -->
+    <!-- 4. Logged-in Change Password Button -->
+    <button
+        id="account-button"
+        data-ms-modal="profile"
+        data-ms-modal-tab="changePassword"
+    >
+        Change Password
+    </button>
+
+    <!-- 5. Login State Logic -->
     <script>
-        // Check if the user is logged in
         window.$memberstackDom.getCurrentMember().then(({ data: member }) => {
+
             const loadingScreen = document.getElementById('loading-screen');
             const gatewayUi = document.getElementById('gateway-ui');
             const memberContent = document.getElementById('member-content');
+            const accountButton = document.getElementById('account-button');
 
             if (member) {
-                // The member IS logged in! 
-                // Hide the loading text and login button, and show the Gamma iframe
+
+                // Logged in
                 loadingScreen.style.display = 'none';
                 gatewayUi.style.display = 'none';
+
                 memberContent.style.display = 'block';
+                accountButton.style.display = 'block';
+
             } else {
-                // The member is NOT logged in. 
-                // Hide the loading text and show the login button
+
+                // Logged out
                 loadingScreen.style.display = 'none';
                 gatewayUi.style.display = 'block';
+
                 memberContent.style.display = 'none';
+                accountButton.style.display = 'none';
             }
+
+        }).catch((error) => {
+
+            console.error('Memberstack error:', error);
+
+            // If Memberstack fails, show the login gateway
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('gateway-ui').style.display = 'block';
+            document.getElementById('member-content').style.display = 'none';
+            document.getElementById('account-button').style.display = 'none';
+
         });
     </script>
+
 </body>
 </html>
