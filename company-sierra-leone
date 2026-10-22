@@ -90,7 +90,7 @@
     <!-- 2. The Gateway UI (Logged Out) -->
     <div class="container" id="gateway-ui">
         <div class="logo-container">
-            <img src="GO-FOR-GOLD%20CLUB%20LOGO.png" alt="GO-FOR-GOLD CLUB" class="logo-image">
+            <img src="GO-FOR-GROWTH%Logo%(Compressed).png" alt="GO-FOR-GROWTH CLUB" class="logo-image">
         </div>
 
         <button data-ms-modal="login" class="btn">
